@@ -1,0 +1,99 @@
+" +---------+
+" + Plugins +
+" +---------+
+
+call plug#begin('~.vim/plugged')
+
+" +--- Workflow ---+
+Plug 'Townk/vim-autoclose'
+Plug 'tpope/vim-fugitive'
+
+" +--- UI ---+
+Plug 'Yggdroot/indentLine'
+Plug 'itchyny/lightline.vim'
+Plug 'airblade/vim-gitgutter'
+
+"+--- Color Themes ---+
+Plug 'arcticicestudio/nord-vim'
+call plug#end()
+
+call plug#end()
+
+"+--- Yggdroot/indentLine ---+
+let g:indentLine_enabled = 0
+let g:indentLine_char = '│'
+
+"+--- itchyny/lightline.vim ---+
+let g:lightline = {
+      \ 'colorscheme': 'nord',
+      \ 'active': {
+      \   'left': [
+      \     [ 'mode', 'paste' ],
+      \     [ 'fugitive', 'filename' ]
+      \   ]
+      \ },
+      \ 'component_function': {
+      \   'fugitive': 'LightlineFugitive',
+      \   'readonly': 'LightlineReadonly',
+      \   'modified': 'LightlineModified',
+      \   'filename': 'LightlineFilename'
+      \ },
+      \ 'separator': {
+      \   'left': '',
+      \   'right': ''
+      \ },
+      \ 'subseparator': {
+      \   'left': '',
+      \   'right': ''
+      \ }
+    \ }
+
+function! LightlineModified()
+  if &filetype == "help"
+    return ""
+  elseif &modified
+    return "+"
+  elseif &modifiable
+    return ""
+  else
+    return ""
+  endif
+endfunction
+
+function! LightlineReadonly()
+  if &filetype == "help"
+    return ""
+  elseif &readonly
+    return ""
+  else
+    return ""
+  endif
+endfunction
+
+function! LightlineFugitive()
+  if exists("*fugitive#head")
+    let branch = fugitive#head()
+    return branch !=# '' ? ' '.branch : ''
+  endif
+  return ''
+endfunction
+
+function! LightlineFilename()
+  return ('' != LightlineReadonly() ? LightlineReadonly() . ' ' : '') .
+       \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+       \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
+endfunction
+
+"+--- airblade/vim-gitgutter ---+
+let g:gitgutter_realtime = 1
+let g:gitgutter_eager = 1
+
+"+---------------+
+"+ Configuration +
+"+---------------+
+colorscheme nord
+
+"+----+
+"+ UI +
+"+----+
+set gfn=Source\ Code\ Pro\ Regular\ 12
