@@ -5,20 +5,20 @@
 call plug#begin('~/.vim/plugged')
 
 " +--- Workflow ---+
-Plug 'Townk/vim-autoclose'
-Plug 'tpope/vim-fugitive'
+Plug 'Townk/vim-autoclose'             " Insert closing brackets
+Plug 'tpope/vim-fugitive'              " Git integration
 
 " +--- UI ---+
-Plug 'Yggdroot/indentLine'
-Plug 'itchyny/lightline.vim'
-Plug 'airblade/vim-gitgutter'
+Plug 'Yggdroot/indentLine'             " Display indentation level
+Plug 'itchyny/lightline.vim'           " Statusline
+Plug 'airblade/vim-gitgutter'          " Show git diff in the gutter
 
 "+--- Color Themes ---+
-Plug 'arcticicestudio/nord-vim'
+Plug 'arcticicestudio/nord-vim'        " Nord colorscheme for Vim
 call plug#end()
 
 "+--- Yggdroot/indentLine ---+
-let g:indentLine_enabled = 0
+let g:indentLine_enabled = 0           " Turn off by default
 let g:indentLine_char = '│'
 
 "+--- itchyny/lightline.vim ---+
@@ -82,26 +82,19 @@ function! LightlineFilename()
        \ ('' != LightlineModified() ? ' ' . LightlineModified() : '')
 endfunction
 
-"+--- airblade/vim-gitgutter ---+
-let g:gitgutter_realtime = 1
-let g:gitgutter_eager = 1
-
 "+---------------+
 "+ Configuration +
 "+---------------+
 syntax enable
 colorscheme nord
 
-filetype plugin on
-filetype indent on
-set autochdir
-set nocompatible
-set noswapfile
+filetype plugin indent on              " Turn on filetype detection, plugins, and indentation
+set autochdir                          " Set working directory to current file location 
+set noswapfile                         " These three prevent Vim from creating backupfiles                      
 set nobackup
-set nowb
-set ttyfast
-set viminfo=
-set updatetime=250
+set nowritebackup
+set viminfo=                           " Remove vimingo
+set updatetime=250                     " How many milliseconds you have to stop typing before Vim updates certain things
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8
@@ -110,55 +103,46 @@ set fileencodings=utf-8
 "+ UI +
 "+----+
 set gfn=Source\ Code\ Pro\ Regular\ 12
-set hidden
-set laststatus=2
-set lazyredraw
-set noerrorbells
-set noshowmode
-set novisualbell
-set number
-set ruler
-set hidden
+set hidden                             " When opening new file, hide buffers with unsaved changes instead of closing them
+set laststatus=2                       " Default to statusline on at start
+set lazyredraw                         " Only redraw if needed
+set noerrorbells                       " Don't make a sound for an error
+set novisualbell                       " Next two prevent screen flashing
 set t_vb=
-set tm=500
-set wildmenu
-set wildignore=*~
-set wildignore+=*/.git/*
+set noshowmode                         " Don't show mode below statusline
+set number                             " Show line number in gutter
+set ruler                              " Show location in document in statusline
+set wildmenu                           " Tab completion for commands
 
 "+--- Editor ---+
-set autoindent
-set backspace=indent,eol,start
-set cursorline
-set colorcolumn=160
-set expandtab
-set foldcolumn=1
-set foldenable
-set foldlevelstart=10
-set linebreak
-set listchars=eol:¬,space:·,tab:»\
-set magic
-set mat=2
+set autoindent                         " Automatically keep indentation level on next line
+set smartindent                        " Let code syntax dictate indentation behavior
+set backspace=2                        " Makes backspace work like in most editors
+set cursorline                         " Highlight the line the cursor is on
+set foldcolumn=1                       " Show all fold info in one column
+set foldmethod=indent                  " Fold on endent level 
+set nofoldenable                       " Don't fold at startup
+set listchars=eol:¬,space:·,tab:»\     " Characters to use for showing whitespace
+set magic                              " Sets regex mode
 set shiftwidth=2
-set showmatch
+set showmatch                          " Highlight matching brakets
 
-" Toggle the sign column automatically when there are signs available to display.
-set signcolumn=auto
-set smartindent
-set smarttab
-set softtabstop=2
-set tabstop=2
-set textwidth=160
+set signcolumn=auto                    " Automatically toggle the sign column in gutter if there is something to show
+set expandtab                          " COnvert tabs to spaces
+set tabstop=2                          " Tabs go two space
+set softtabstop=2                      " Backspace will treat two spaces as a tab and delete both 
 
 " Automatically wrap left and right.
 " This allows to move the cursor to the previous/next line after reaching first/last character in the line using the arrow keys in normal-, insert- (<,>) and visual mode ([,]) or the h and l keys.
 set whichwrap+=<,>,h,l,[,]
-set wrap
+set wrap                               " Allow linewrapping
+set linebreak                          " Only wrap lines between words
 
 "+--- Search ---+
-set ignorecase
-set smartcase
-set hlsearch
-set incsearch
+set ignorecase                         " Search is case insensitive
+set smartcase                          " Search becomes case sensitive if the pattern has a capital letter
+set hlsearch                           " Highlight all search pattern matches
+set incsearch                          " Highlight matches as you type
 
 "+-----------+
 "+ Functions +
