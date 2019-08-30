@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Create symbolic links for all the config files in the appropriate location
+
+# +--- Vim and NeoVim ---+
+ln -fs "${PWD}/vim/vimrc" "${HOME}/.vimrc"
+ln -fs "${PWD}/vim/init.vim" "${HOME}/.config/nvim/init.vim"
